@@ -1,7 +1,7 @@
 // FASTLED stuff
 #include "FastLED.h"
 #define NUM_LEDS 258
-#define DATA_PIN 5
+#define DATA_PIN 1
 CRGB leds[NUM_LEDS];
 
 //MSGEQ7 stuff
@@ -10,7 +10,7 @@ CRGB leds[NUM_LEDS];
 #define pinReset 4
 #define pinStrobe 2
 #define MSGEQ7_INTERVAL ReadsPerSecond(50)
-#define MSGEQ7_SMOOTH 220
+#define MSGEQ7_SMOOTH 210
 CMSGEQ7<MSGEQ7_SMOOTH, pinReset, pinStrobe, pinAnalogLeft> MSGEQ7;
 
 //WIFI Stuff
@@ -23,10 +23,11 @@ int bass, mid, treble, inputBass, lastBass, deltaBass, lastMid, deltaMid;
 bool onOff = true;
 bool brightnessChange = false;
 int brightness = 200;
-int current = 3;
+int current = 4;
 bool wifiOn = true;
-
 int simpleColour = 0;
+
+
 
 void setup() {
   Serial.begin(115200);
@@ -127,6 +128,10 @@ void loop() {
         setupValues();
         simpleLightBeat();
         break;
+      case 4:
+        setupValues();
+        bassBullets();
+        break;
     }
     FastLED.setBrightness(brightness);
     FastLED.show();
@@ -135,6 +140,68 @@ void loop() {
     FastLED.show();
   }
 }
+
+int bassBulletArray[50];
+int bassBulletCounter = 0;
+int midBulletArray[50];
+int midBulletCounter = 0;
+int colour = 160;
+void bassBullets(){
+  fadeToBlackBy(leds,NUM_LEDS,100);
+
+  //For the bass
+  for(int i = 0; i <49; i++){
+      if(bassBulletArray[i] <(NUM_LEDS-1)){
+        bassBulletArray[i] = bassBulletArray[i] +2;
+      }
+  }
+  deltaBass = bass - lastBass;
+  lastBass = bass;
+  if(deltaBass >20){
+    bassBulletArray[bassBulletCounter] = 0;
+    bassBulletCounter++;
+    colour++;
+  }
+  for(int i = 0; i <49; i++){
+    leds[bassBulletArray[i]] += CHSV( 213, 0, (255-(bassBulletArray[i]/2)));  
+  }
+  if(bassBulletCounter == 49){
+    bassBulletCounter = 0;
+  }
+
+
+
+   //For the mids
+  for(int i = 0; i <49; i++){
+      if(midBulletArray[i] <NUM_LEDS){
+        midBulletArray[i] = midBulletArray[i] + 1;
+      }
+  }
+  deltaMid = mid - lastMid;
+  lastMid = mid;
+  if(deltaMid >25){
+    midBulletArray[midBulletCounter] = 0;
+    midBulletCounter++;
+  }
+  for(int i = 0; i <49; i++){
+    leds[midBulletArray[i]] += CHSV( colour, 200, (255-(midBulletArray[i]/2)));  
+  }
+  if(midBulletCounter == 49){
+    midBulletCounter = 0;
+  }
+
+  
+  
+  if(deltaBass >35){
+    fill_solid(leds,NUM_LEDS,CHSV(255,0,255));
+  }
+  
+}
+
+
+
+
+
 
 void simpleLightBeat(){
   deltaBass = bass - lastBass;
