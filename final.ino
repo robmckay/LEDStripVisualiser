@@ -24,10 +24,7 @@ CMSGEQ7<MSGEQ7_SMOOTH, pinReset, pinStrobe, pinAnalogLeft> MSGEQ7;
 
 //WIFI Stuff
 #include <ESP8266WiFi.h>
-//const char* ssid = "124WR-Kitchen";
-//const char* password = "JonasCourtH3";
-const char* ssid = "BTHub5-NQ38";
-const char* password = "schoolroadmassive";
+
 WiFiServer server(80);
 
 #include <DNSServer.h>
