@@ -24,6 +24,7 @@ Also whole strip can be used as a white light with variable brightness through t
   
   <br/>
   <b>PCB</b>
-  ![alt tag](https://github.com/robmckay/LEDStripVisualiser/blob/master/PCB.PNG)
+  
+  ![alt tag](https://github.com/robmckay/LEDStripVisualiser/blob/master/PCB.png)
   
 
