@@ -20,10 +20,10 @@ Also whole strip can be used as a white light with variable brightness through t
   
   
   <b>Schematic</b>
-  ![alt tag](https://github.com/robmckay/LEDStripVisualiser/blob/master/schematic1.jpg)
+  ![alt tag](https://github.com/robmckay/LEDStripVisualiser/blob/master/schematic2.png)
   
   <br/>
-  <b>PCB</b><br/>
+  <b>PCB</b>
   ![alt tag](https://github.com/robmckay/LEDStripVisualiser/blob/master/PCB.png)
   
 
